@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Plugin.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="GOAP.cpp">
+      <Filter>GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions.cpp">
+      <Filter>GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceWrapper.cpp" />
+    <ClCompile Include="HouseManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PickupManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalFunctions.cpp" />
+    <ClCompile Include="InventoryManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Plugin.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="GOAP.h">
+      <Filter>GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldState.h">
+      <Filter>GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions.h">
+      <Filter>GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceWrapper.h" />
+    <ClInclude Include="HouseManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PickupManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalFunctions.h" />
+    <ClInclude Include="InventoryManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GOAP">
+      <UniqueIdentifier>{be92d59b-9cb9-4299-826f-fedc482ff446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{2c8a85d5-e2fb-43b3-8b09-ed54cd22bd60}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
