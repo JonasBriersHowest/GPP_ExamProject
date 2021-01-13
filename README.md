@@ -168,10 +168,3 @@ AGAP fits the needs of my project and works as I hoped it would work, so I consi
 I had some interesting bugs / mistakes in my project that I personally think are quite funny:
  - I have a variable called "laziness", this determines how much the AI prefers a cheap path over a high rewarding path. At some point this value was so high my agent decided to do the cheapest possible action at all times. This caused it barely do anything at all and just chill untill I patched it.
  - I have a variable called "shortTermBias" that determines how much my AI prefers short term rewards over long term rewards. This is supposed to be a value higher than 1. Because I accidentally gave it a value less than 1 my agent would prefer long term rewards over the exact same score now. This would cause my agent to procrastinate. The agent would literally do any random task so it could do the important tasks later. So I ended up accidentally implementing a student :>
-
-resting to try to come up with my own AI system based on AGAP, I don't think it's gonna be the next big thing in the industry.
-AGAP fits the needs of my project and works as I hoped it would work, so I consider my experiment a success, although there is still much room for improvement.
-## Bloopers
-I had some interesting bugs / mistakes in my project that I personally think are quite funny:
- - I have a variable called "laziness", this determines how much the AI prefers a cheap path over a high rewarding path. At some point this value was so high my agent decided to do the cheapest possible action at all times. This caused it barely do anything at all and just chill untill I patched it.
- - I have a variable called "shortTermBias" that determines how much my AI prefers short term rewards over long term rewards. This is supposed to be a value higher than 1. Because I accidentally gave it a value less than 1 my agent would prefer long term rewards over the exact same score now. This would cause my agent to procrastinate. The agent would literally do any random task so it could do the important tasks later. So I ended up accidentally implementing a student :>
