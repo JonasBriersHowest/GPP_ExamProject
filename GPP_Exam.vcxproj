@@ -187,7 +187,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actions.h" />
-    <ClInclude Include="GOAP.h" />
+    <ClInclude Include="AGAP.h" />
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="HouseManager.h" />
     <ClInclude Include="InterfaceWrapper.h" />
@@ -199,7 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actions.cpp" />
-    <ClCompile Include="GOAP.cpp" />
+    <ClCompile Include="AGAP.cpp" />
     <ClCompile Include="GlobalFunctions.cpp" />
     <ClCompile Include="HouseManager.cpp" />
     <ClCompile Include="InterfaceWrapper.cpp" />

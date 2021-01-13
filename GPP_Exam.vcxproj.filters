@@ -3,9 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Plugin.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="GOAP.cpp">
-      <Filter>GOAP</Filter>
-    </ClCompile>
     <ClCompile Include="Actions.cpp">
       <Filter>GOAP</Filter>
     </ClCompile>
@@ -20,13 +17,13 @@
     <ClCompile Include="InventoryManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="AGAP.cpp">
+      <Filter>GOAP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plugin.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="GOAP.h">
-      <Filter>GOAP</Filter>
-    </ClInclude>
     <ClInclude Include="WorldState.h">
       <Filter>GOAP</Filter>
     </ClInclude>
@@ -43,6 +40,9 @@
     <ClInclude Include="GlobalFunctions.h" />
     <ClInclude Include="InventoryManager.h">
       <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AGAP.h">
+      <Filter>GOAP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

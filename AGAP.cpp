@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "GOAP.h"
+#include "AGAP.h"
 
-GOAP::GOAP( )
+AGAP::AGAP( )
 	: m_CurrentWorldState{ }
 	, m_pCurrentAction{ }
 	, m_Laziness{ 0.1f }
@@ -10,7 +10,7 @@ GOAP::GOAP( )
 {
 }
 
-float GOAP::EvaluateWorldState( const WorldState& worldState )
+float AGAP::EvaluateWorldState( const WorldState& worldState )
 {
 	float score{ };
 
@@ -40,7 +40,7 @@ float GOAP::EvaluateWorldState( const WorldState& worldState )
 	return score;
 }
 
-std::tuple<IAction*, std::string> GOAP::GetBestAction( const WorldState& worldState, depth_t depth )
+std::tuple<IAction*, std::string> AGAP::GetBestAction( const WorldState& worldState, depth_t depth )
 {
 	IAction* pBest{ };
 	std::string descriptor{ };
@@ -90,7 +90,7 @@ bool operator==( const WorldState& lhs, const WorldState& rhs )
 	return memcmp( &lhs, &rhs, sizeof( WorldState ) ) == 0;
 }
 
-void GOAP::UpdateWorldState( const WorldState& worldState )
+void AGAP::UpdateWorldState( const WorldState& worldState )
 {
 	if( worldState == m_CurrentWorldState )
 		return;
@@ -102,18 +102,18 @@ void GOAP::UpdateWorldState( const WorldState& worldState )
 	m_CurrentWorldState = worldState;
 }
 
-void GOAP::ExecutePlan( float dt ) const
+void AGAP::ExecutePlan( float dt ) const
 {
 	if( m_pCurrentAction )
 		m_pCurrentAction->Update( dt );
 }
 
-void GOAP::AddAction( std::unique_ptr<IAction> pAction )
+void AGAP::AddAction( std::unique_ptr<IAction> pAction )
 {
 	m_pActions.emplace_back( std::move( pAction ) );
 }
 
-void GOAP::ForAllPossibleActions( const WorldState& worldState, const std::function<void( IAction& )>& func ) const
+void AGAP::ForAllPossibleActions( const WorldState& worldState, const std::function<void( IAction& )>& func ) const
 {
 	for( auto& pAction : m_pActions )
 	{
@@ -123,7 +123,7 @@ void GOAP::ForAllPossibleActions( const WorldState& worldState, const std::funct
 	}
 }
 
-bool GOAP::IsBetterActionPath( const ExploreActionResult& ear0, const ExploreActionResult& ear1 ) const
+bool AGAP::IsBetterActionPath( const ExploreActionResult& ear0, const ExploreActionResult& ear1 ) const
 {
 	float activeness{ 1.f - m_Laziness };
 	float score0{ -ear0.cost * m_Laziness + ear0.score * activeness };

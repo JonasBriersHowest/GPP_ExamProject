@@ -18,7 +18,7 @@ void InterfaceWrapper::Initialize( IBaseInterface* pInterface, PluginInfo& info 
 	m_pInterface = static_cast<IExamInterface*>(pInterface);
 	//Bit information about the plugin
 	//Please fill this in!!
-	info.BotName = "BotNameTEST";
+	info.BotName = "Procrastinator";
 	info.Student_FirstName = "Jonas";
 	info.Student_LastName = "Briers";
 	info.Student_Class = "2DAE1";

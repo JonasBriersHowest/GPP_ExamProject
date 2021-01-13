@@ -7,7 +7,7 @@
 // ReSharper disable once CppInconsistentNaming
 bool operator==( const WorldState& lhs, const WorldState& rhs );
 
-class GOAP
+class AGAP
 {
 	using depth_t = uint16;
 
@@ -18,7 +18,7 @@ class GOAP
 	};
 
 public:
-	GOAP( );
+	AGAP( );
 	static float EvaluateWorldState( const WorldState& worldState );
 	std::tuple<IAction*, std::string> GetBestAction( const WorldState& worldState, depth_t depth );
 	void UpdateWorldState( const WorldState& worldState );

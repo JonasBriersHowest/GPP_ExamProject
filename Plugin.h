@@ -1,7 +1,7 @@
 #pragma once
 #include "IExamPlugin.h"
 #include "Exam_HelperStructs.h"
-#include "GOAP.h"
+#include "AGAP.h"
 #include "InterfaceWrapper.h"
 
 class IBaseInterface;
@@ -25,7 +25,7 @@ public:
 	void Render( float dt ) const override;
 
 private:
-	GOAP m_Planner;
+	AGAP m_Planner;
 	InterfaceWrapper m_InterfaceWrapper;
 };
 
