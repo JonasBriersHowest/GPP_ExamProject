@@ -40,6 +40,10 @@ public:
 	void UseItem( UINT idx ) const;
 	const EnemyInfo& GetClosestEnemy( ) const;
 	float GetElapsedTimeSinceLastHit( ) const;
+	int Weapon_GetAmmo( ItemInfo& pistol ) const;
+
+	const PurgeZoneInfo& GetFirstPurgeZone( ) const;
+	bool IsInPurgeZone() const;
 private:
 	void UpdateHousesInFOV( );
 	void UpdateEntitiesInFOV( );

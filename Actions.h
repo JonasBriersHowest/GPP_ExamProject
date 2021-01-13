@@ -1,6 +1,7 @@
 #pragma once
 #include "EliteMath/EMath.h"
 #include "PickupManager.h"
+#include "GlobalFunctions.h"
 
 struct WorldState;
 class InterfaceWrapper;
@@ -246,4 +247,26 @@ public:
 	Spin& operator=( Spin&& other ) noexcept = delete;
 private:
 	Elite::Vector2 m_ForwardVelocity;
+};
+
+class FleePurgeZone final : public MoveTo
+{
+public:
+	FleePurgeZone( InterfaceWrapper& examInterface );
+
+	float GetCost( ) const override;
+	bool IsAvailable( const WorldState& worldState ) const override;
+	WorldState GetResult( WorldState worldState ) override;
+	void Start( ) override;
+	void Update( float dt ) override;
+
+	~FleePurgeZone( ) override = default;
+	FleePurgeZone( const FleePurgeZone& other ) = delete;
+	FleePurgeZone( FleePurgeZone&& other ) noexcept = delete;
+	FleePurgeZone& operator=( const FleePurgeZone& other ) = delete;
+	FleePurgeZone& operator=( FleePurgeZone&& other ) noexcept = delete;
+private:
+	time_point m_LastEscapePosCalculated;
+
+	void UpdateEscapePos( );
 };

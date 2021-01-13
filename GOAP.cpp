@@ -14,8 +14,13 @@ float GOAP::EvaluateWorldState( const WorldState& worldState )
 {
 	float score{ };
 
+	score += 80.f * float( min( worldState.pistolsAvailable, 2u ) );
+	score += 50.f * float( min( worldState.medkitsAvailable, 2u ) );
+	score += 50.f * float( min( worldState.foodsAvailable, 2u ) );
+
+
 	score += float( worldState.medkitsInInventory ) * 80.f;
-	score += float( worldState.pistolsInInventory ) * 70.f;
+	score += float( worldState.pistolsInInventory ) * 90.f;
 	score += float( worldState.foodsInInventory ) * 70.f;
 	if( worldState.foodsInInventory != 0 )
 		score += 70.f;
@@ -29,6 +34,8 @@ float GOAP::EvaluateWorldState( const WorldState& worldState )
 	score += Elite::Clamp( 3.f - float( worldState.enemiesInFov ), 0.f, 10.f ) * 200.f;
 	if( !worldState.isInDanger )
 		score += 1600;
+	if( !worldState.purgeZoneInFov )
+		score += 2600;
 
 	return score;
 }

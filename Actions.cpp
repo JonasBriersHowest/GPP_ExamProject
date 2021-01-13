@@ -58,12 +58,9 @@ void MoveTo::Update( float dt )
 	steering.LinearVelocity.Normalize( ); //Normalize Desired Velocity
 	steering.LinearVelocity *= m_ExamInterface.get( ).Agent_GetInfo( ).MaxLinearSpeed; //Rescale to Max Speed
 
-	//if( Distance( m_NextPos, pos ) < 2.f )
-	//{
-	//	steering.LinearVelocity = Elite::ZeroVector2;
-	//}
-	steering.RunMode = m_ExamInterface.get( ).GetElapsedTimeSinceLastHit( ) < 6.f;
-	//steering.AngularVelocity = m_AngSpeed; //Rotate your character to inspect the world while walking
+
+	steering.RunMode = m_ExamInterface.get( ).GetElapsedTimeSinceLastHit( ) < 6.f || m_ExamInterface.get( ).IsInPurgeZone( );
+
 	steering.AutoOrient = true; //Setting AutoOrientate to True overrides the AngularVelocity
 	m_ExamInterface.get( ).SetSteering( steering );
 }
@@ -544,4 +541,56 @@ void Spin::Update( float dt )
 	steering.AngularVelocity = 30.f;
 	steering.LinearVelocity = m_ForwardVelocity;
 	m_ExamInterface.get( ).SetSteering( steering );
+}
+
+FleePurgeZone::FleePurgeZone( InterfaceWrapper& examInterface )
+	: MoveTo( examInterface, "Flee Purge Zone" )
+{
+}
+
+float FleePurgeZone::GetCost( ) const
+{
+	return 15.f;
+}
+
+bool FleePurgeZone::IsAvailable( const WorldState& worldState ) const
+{
+	if( !worldState.purgeZoneInFov ) return false;
+
+	return true;
+}
+
+WorldState FleePurgeZone::GetResult( WorldState worldState )
+{
+	worldState.purgeZoneInFov = false;
+
+	return worldState;
+}
+
+void FleePurgeZone::Start( )
+{
+	UpdateEscapePos( );
+}
+
+void FleePurgeZone::Update( float dt )
+{
+	constexpr float recalculatePosTime{ 1.f };
+
+	// Shortest escape path might change due to obstacles in the way, recalculate every second or so.
+	if( ElapsedSince( m_LastEscapePosCalculated ) > recalculatePosTime )
+		UpdateEscapePos( );
+
+	MoveTo::Update( dt );
+}
+
+void FleePurgeZone::UpdateEscapePos( )
+{
+	m_LastEscapePosCalculated = Now( );
+
+	const auto& purgeZone{ m_ExamInterface.get( ).GetFirstPurgeZone( ) };
+	const auto agentPos{ m_ExamInterface.get( ).Agent_GetInfo( ).Position };
+	const auto escapeDirection{ agentPos - purgeZone.Center };
+	const auto escapePos{ agentPos + escapeDirection * ( purgeZone.Radius * 1.5f ) };
+
+	SetTargetPos( escapePos );
 }

@@ -19,4 +19,5 @@ struct WorldState
 	bool wasBitten;
 	bool wantsToSpin;
 	bool isInDanger;
+	bool purgeZoneInFov;
 };

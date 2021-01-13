@@ -22,6 +22,7 @@ void Plugin::Initialize( IBaseInterface* pInterface, PluginInfo& info )
 	m_Planner.AddAction( std::make_unique<ShootEnemy>( m_InterfaceWrapper ) );
 	m_Planner.AddAction( std::make_unique<AimAtEnemy>( m_InterfaceWrapper ) );
 	m_Planner.AddAction( std::make_unique<Spin>( m_InterfaceWrapper ) );
+	m_Planner.AddAction( std::make_unique<FleePurgeZone>( m_InterfaceWrapper ) );
 }
 
 //Called only once
@@ -52,43 +53,6 @@ void Plugin::InitGameDebugParams( GameDebugParams& params )
 //(=Use only for Debug Purposes)
 void Plugin::Update( float dt )
 {
-	////Demo Event Code
-	////In the end your AI should be able to walk around without external input
-	//if( m_pInterface->Input_IsMouseButtonUp( Elite::InputMouseButton::eLeft ) )
-	//{
-	//	//Update target based on input
-	//	Elite::MouseData mouseData = m_pInterface->Input_GetMouseData( Elite::InputType::eMouseButton, Elite::InputMouseButton::eLeft );
-	//	const Elite::Vector2 pos = Elite::Vector2( static_cast<float>(mouseData.X), static_cast<float>(mouseData.Y) );
-	//	m_Target = m_pInterface->Debug_ConvertScreenToWorld( pos );
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_Space ) )
-	//{
-	//	m_CanRun = true;
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_Left ) )
-	//{
-	//	m_AngSpeed -= Elite::ToRadians( 10 );
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_Right ) )
-	//{
-	//	m_AngSpeed += Elite::ToRadians( 10 );
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_G ) )
-	//{
-	//	m_GrabItem = true;
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_U ) )
-	//{
-	//	m_UseItem = true;
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyDown( Elite::eScancode_R ) )
-	//{
-	//	m_RemoveItem = true;
-	//}
-	//else if( m_pInterface->Input_IsKeyboardKeyUp( Elite::eScancode_Space ) )
-	//{
-	//	m_CanRun = false;
-	//}
 }
 
 //Update
@@ -99,7 +63,6 @@ SteeringPlugin_Output Plugin::UpdateSteering( float dt )
 	m_Planner.UpdateWorldState( m_InterfaceWrapper.GetWorldState( ) );
 	m_Planner.ExecutePlan( dt );
 
-	auto steering = SteeringPlugin_Output( );
 
 	return m_InterfaceWrapper.GetSteering( );
 }

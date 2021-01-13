@@ -63,7 +63,22 @@ void InventoryManager::UseMedkit( ) const
 
 void InventoryManager::UsePistol( ) const
 {
-	UINT idx{ m_PistolIndices[0] };
+	auto it{
+		std::min_element( m_PistolIndices.cbegin( ), m_PistolIndices.cend( ), [&]( UINT i0, UINT i1 )
+		{
+			ItemInfo p0{ };
+			ItemInfo p1{ };
+
+			// Should always return true
+			assert( m_InterfaceWrapper.get().InventoryGetItem(i0, p0) );
+			assert( m_InterfaceWrapper.get().InventoryGetItem(i0, p1) );
+
+			int ammo0{ m_InterfaceWrapper.get( ).Weapon_GetAmmo( p0 ) };
+			int ammo1{ m_InterfaceWrapper.get( ).Weapon_GetAmmo( p1 ) };
+			return ammo0 < ammo1;
+		} )
+	};
+	UINT idx{ *it };
 	m_InterfaceWrapper.get( ).UseItem( idx );
 }
 

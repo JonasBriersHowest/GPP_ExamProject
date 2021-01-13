@@ -70,6 +70,7 @@ WorldState InterfaceWrapper::GetWorldState( ) const
 	ws.wasBitten = GetElapsedTimeSinceLastHit( ) < 2.f;
 	ws.wantsToSpin = ShouldSpin( );
 	ws.isInDanger = ws.wasBitten || ws.enemiesInFov != 0u;
+	ws.purgeZoneInFov = !m_PurgeZonesInFOV.empty( );
 
 	return ws;
 }
@@ -276,6 +277,24 @@ float InterfaceWrapper::GetElapsedTimeSinceLastHit( ) const
 {
 	auto now{ std::chrono::system_clock::now( ) };
 	return float( std::chrono::duration_cast<std::chrono::seconds>( now - m_LastHitTime ).count( ) );
+}
+
+int InterfaceWrapper::Weapon_GetAmmo( ItemInfo& pistol ) const
+{
+	return m_pInterface->Weapon_GetAmmo( pistol );
+}
+
+const PurgeZoneInfo& InterfaceWrapper::GetFirstPurgeZone( ) const
+{
+	// Doesn't work when m_PurgeZonesInFOV is empty, this is intentional.
+	return m_PurgeZonesInFOV[0];
+}
+
+bool InterfaceWrapper::IsInPurgeZone( ) const
+{
+	if( m_PurgeZonesInFOV.empty( ) ) return false;
+	const auto& pz{ m_PurgeZonesInFOV[0] };
+	return DistanceSquared( m_AgentInfo.Position, pz.Center ) < Elite::Square( pz.Radius );
 }
 
 void InterfaceWrapper::ResetHitTimer( )
