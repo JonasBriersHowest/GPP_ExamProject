@@ -463,15 +463,6 @@ void AimAtEnemy::Update( float dt )
 {
 	constexpr float evadeRange{ 70.f };
 	
-	/*
-	 * Totally came up with this myself and didn't copy this formula from the internet
-	 * But if I had copied it I would've copied it from here:
-	 * https://stackoverflow.com/questions/1878907/the-smallest-difference-between-2-angles
-	 * a = targetA - sourceA
-	 * a -= 360 if a > 180
-	 * a += 360 if a < -180
-	 */
-
 	auto enemyPos{ m_ExamInterface.get( ).GetClosestEnemy( ).Location };
 	const auto& agentInfo{ m_ExamInterface.get( ).Agent_GetInfo( ) };
 
@@ -479,20 +470,11 @@ void AimAtEnemy::Update( float dt )
 	SteeringPlugin_Output steering{ };
 
 	Elite::Vector2 toTarget{ enemyPos - agentInfo.Position };
-	float targetAngle{ atan2( toTarget.y, toTarget.x ) };
-	float currentAngle{ agentInfo.Orientation - float( E_PI_2 ) };
-	currentAngle = atan2f( sinf( currentAngle ), cosf( currentAngle ) ); // This line makes this code compatible with the new framework
+	Elite::Vector2 agentForward{ Elite::OrientationToVector( agentInfo.Orientation ) };
+	float cross{ Cross( agentForward, toTarget ) };
+	float angularVelocity{ cross < 0.f ? -agentInfo.MaxAngularSpeed : agentInfo.MaxAngularSpeed };
 
-	// Find smallest difference in angle between target and current angle
-	constexpr float pi2{ float( E_PI * 2 ) };
-	float desiredAngularVelocity{ targetAngle - currentAngle };
-	if( desiredAngularVelocity > E_PI )
-		desiredAngularVelocity -= pi2;
-	else if( desiredAngularVelocity < -float( E_PI ) )
-		desiredAngularVelocity += pi2;
-
-
-	steering.AngularVelocity = desiredAngularVelocity * 30.f;
+	steering.AngularVelocity = angularVelocity;
 	steering.AutoOrient = false;
 
 	// Move away while aiming

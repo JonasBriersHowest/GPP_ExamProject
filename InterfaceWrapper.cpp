@@ -45,6 +45,8 @@ void InterfaceWrapper::UpdateValues( )
 
 WorldState InterfaceWrapper::GetWorldState( ) const
 {
+	constexpr bool isParanoid{ false };
+
 	WorldState ws{ };
 	ws.housesAvailable = m_pHouseManager->UnvisitedHousesCount( );
 
@@ -69,7 +71,12 @@ WorldState InterfaceWrapper::GetWorldState( ) const
 	// Danger
 	ws.wasBitten = GetElapsedTimeSinceLastHit( ) < 2.f;
 	ws.wantsToSpin = ShouldSpin( );
-	ws.isInDanger = ws.wasBitten || ws.enemiesInFov != 0u;
+	
+	if constexpr( isParanoid )
+		ws.isInDanger = ws.wasBitten || ws.enemiesInFov != 0u || ws.wantsToSpin;
+	else
+		ws.isInDanger = ws.wasBitten || ws.enemiesInFov != 0u;
+	
 	ws.purgeZoneInFov = !m_PurgeZonesInFOV.empty( );
 
 	return ws;
